@@ -3,14 +3,13 @@ package com.pucrs.dem_service.services;
 import org.springframework.stereotype.Service;
 
 import com.pucrs.dem_service.client.CountriesClient;
+import com.pucrs.dem_service.client.MdmClient;
 import com.pucrs.dem_service.client.RestCountryAPIResponse;
 import com.pucrs.dem_service.dtos.CountryDTO;
 import com.pucrs.dem_service.dtos.CurrencyDTO;
 import com.pucrs.dem_service.entities.ETLTransaction;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -19,10 +18,14 @@ public class DemService {
 
     private final CountriesClient client;
     private final ETLTransactionService etlTransactionService;
+    private final MdmClient mdmClient;  
 
-    public DemService(CountriesClient client, ETLTransactionService etlTransactionService) {
+    public DemService(CountriesClient client,
+                      ETLTransactionService etlTransactionService,
+                      MdmClient mdmClient) {
         this.client = client;
         this.etlTransactionService = etlTransactionService;
+        this.mdmClient = mdmClient;
     }
 
     public List<CountryDTO> extractCountries() {
@@ -35,6 +38,9 @@ public class DemService {
             for (RestCountryAPIResponse apiCountry : apiCountries) {
                 CountryDTO dto = convertToCountryDto(apiCountry);
                 countryDtos.add(dto);
+
+                // Envia o CountryDTO para o MDM
+                mdmClient.sendCountry(dto);
             }
 
             etlTransactionService.finishTransactionSuccess(transaction.getId());
