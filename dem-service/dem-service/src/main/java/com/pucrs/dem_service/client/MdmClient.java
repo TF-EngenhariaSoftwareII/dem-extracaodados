@@ -18,7 +18,7 @@ public class MdmClient {
     }
 
     public void sendCountry(CountryDTO countryDTO) {
-        String mdmUrl = "http://mdm-service:8080/countries";
+        String mdmUrl = "http://localhost:8080/countries";
 
         restTemplate.postForObject(mdmUrl, countryDTO, Void.class);
     }

@@ -1,0 +1,11 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: dem-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: demdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
