@@ -5,8 +5,8 @@ import java.util.Map;
 
 public class RestCountryAPIResponse {
 
-    public Name name;  // name.common
-    public String ccn3;  // numeric code
+    public Name name;  
+    public String ccn3;  
     public List<String> capital;
     public Long population;
     public Double area;

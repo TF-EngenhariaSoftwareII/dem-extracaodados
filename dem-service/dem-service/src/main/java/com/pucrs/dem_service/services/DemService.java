@@ -39,7 +39,7 @@ public class DemService {
                 CountryDTO dto = convertToCountryDto(apiCountry);
                 countryDtos.add(dto);
 
-                // Envia o CountryDTO para o MDM
+                
                 mdmClient.sendCountry(dto);
             }
 

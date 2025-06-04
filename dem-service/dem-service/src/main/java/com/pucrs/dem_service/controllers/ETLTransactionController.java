@@ -17,7 +17,7 @@ public class ETLTransactionController {
         this.etlTransactionService = etlTransactionService;
     }
 
-     // ✅ Apenas listar todas as transações
+   
     @GetMapping
     public List<ETLTransaction> getAllTransactions() {
         return etlTransactionService.getAllTransactions();
